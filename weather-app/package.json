@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "build": "webpack -p",
+    "dev": "webpack-dev-server -d"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
