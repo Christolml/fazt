@@ -1,0 +1,81 @@
+<!-- estoy indicando que a este index se le va a agregar el head y el footer de mi
+layout -->
+{% extends 'layout.html' %}
+
+<!-- en mi layout tambien tengo declarado block body el cual la funcion
+es que el block body de este index se mete en el block body de mi layout cuando aqui lo use -->
+{% block body %}
+
+<div class="row">
+  <div class="col-md-5">
+
+    <!-- con el método get_flashed_messages capturo mensajes que me envian por flash y los
+    guarda en la variable messages -->
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      {{message}}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+
+    <div class="card card-body">
+      <!-- en el form en action me sirve para cuando envie la información del formulario
+      la envia a  la ruta que le puse en action y con el metodo post y ya esa ruta ejecutara x cosa  -->
+      <form action="/add_contact" method="POST">
+        <div class="form-group">
+          <input type="text" name="fullname" placeholder="Fullname" class="form-control" >
+        </div>
+        <div class="form-group">
+          <input type="text" name="phone" placeholder="Phone" class="form-control" >
+        </div>
+        <div class="form-group">
+          <input type="text" name="email" placeholder="Email" class="form-control" >
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary btn-block" >
+            Save
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="col-md-7">
+    <table class="table table-striped table-bordered bg-white table-sm">
+      <thead>
+        <tr>
+          <td>Fullname</td>
+          <td>Phone</td>
+          <td>Email</td>
+          <td>Operations</td>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for contact in contacts %}
+        <tr>
+          <!-- contact.1 accede al segundo valor de mi contacto -->
+          <td>{{contact.1}}</td>
+          <td>{{contact.2}}</td>
+          <td>{{contact.3}}</td>
+          <td>
+            <a href="/edit/{{contact.0}}" class="btn btn-secondary">Edit</a>
+            <a href="/delete/{{contact.0}}" class="btn btn-danger btn-delete ">Delete</a>
+          </td>
+        </tr>
+        {% endfor %}
+
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+{% endblock %}
