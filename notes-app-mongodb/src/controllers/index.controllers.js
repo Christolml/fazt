@@ -3,6 +3,7 @@ const indexCtrl = {};
 
 
 indexCtrl.renderIndex = (req, res) => {
+    console.dir(res);
     res.render('index')
 };
 
